@@ -24,7 +24,9 @@ export const loginUserAuth = async( req, res )=>{
 
     return res
     .status(200)
-    .json( { message: "Login Successfull ", userExist})
+    .json( { message: "Login Successfull ",
+    userExist,
+    token: await userExist.generateToken() } )
     
 
    } catch (error) {
