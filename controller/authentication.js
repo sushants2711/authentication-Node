@@ -30,7 +30,10 @@ export const registrationUser = async(req, res)=>{
         const savedUser = await userData.save();
         return res
         .status(201)
-        .json( { message: " User Created Successful !! " , details: userData} )
+        .json( { message: " User Created Successful !! " ,
+        details: userData ,
+        token: await savedUser.generateToken() 
+    } )
         
     } catch (error) {
         return res
