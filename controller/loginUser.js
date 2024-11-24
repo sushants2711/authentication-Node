@@ -1,4 +1,6 @@
 import userAuthModel from "../model/userAuthModel.js";
+import bcrypt from "bcryptjs"
+
 
 export const loginUserAuth = async( req, res )=>{
    try {
@@ -14,15 +16,15 @@ export const loginUserAuth = async( req, res )=>{
         .json( { error : "User not found " } )
     }
 
-    if(userExist.password != password){
-        return res
-        .status(400)
-        .json( { error: "invalid password "} )
+    const isPasswordMatch = await bcrypt.compare(password, userExist.password);
+
+    if (!isPasswordMatch) {
+      return res.status(400).json({ error: "Invalid password" });
     }
 
     return res
     .status(200)
-    .json( { message: "Login Successfull ", userData})
+    .json( { message: "Login Successfull ", userExist})
     
 
    } catch (error) {
