@@ -5,6 +5,7 @@ import bodyParser from "body-parser"
 
 
 import route from "./routers/userRouter.js"
+import router from "./routers/contactRouter.js"
 
 const app = express();
 
@@ -21,3 +22,4 @@ mongoose.connect(MONGOURL).then( ()=> {
 }).catch((error)=> console.log("error from mongo database connection "+error))
 
 app.use("/ourwebsite", route)
+app.use("/ourwebsite/form", router)
